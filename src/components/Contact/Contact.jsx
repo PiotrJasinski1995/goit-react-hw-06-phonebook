@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
 import { ContactStyled } from './styled';
 
-const Contact = ({ name = '', number = '', onHandleDeleteContact }) => {
+const Contact = ({
+  id = '',
+  name = '',
+  number = '',
+  onHandleDeleteContact,
+}) => {
   const handleDeleteContact = () => {
-    onHandleDeleteContact(name);
+    onHandleDeleteContact(id);
   };
 
   return (
@@ -19,6 +24,7 @@ const Contact = ({ name = '', number = '', onHandleDeleteContact }) => {
 };
 
 Contact.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string,
   number: PropTypes.string,
   onHandleDeleteContact: PropTypes.func,

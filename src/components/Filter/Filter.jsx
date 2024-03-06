@@ -1,13 +1,17 @@
-import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid';
 import { FilterStyled } from './styled';
+import { nanoid } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeFilter } from '../../redux/filterSlice';
+import { getFilter } from '../../redux/selectors';
 
-const Filter = ({ filter = '', onHandleFilter }) => {
+const Filter = () => {
   const filterInputId = nanoid();
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
 
   const handleFilter = event => {
     const filter = event.target.value;
-    onHandleFilter(filter);
+    dispatch(changeFilter(filter));
   };
 
   return (
@@ -26,11 +30,6 @@ const Filter = ({ filter = '', onHandleFilter }) => {
       />
     </FilterStyled>
   );
-};
-
-Filter.propTypes = {
-  filter: PropTypes.string,
-  onHandleFilter: PropTypes.func,
 };
 
 export default Filter;

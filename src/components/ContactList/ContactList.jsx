@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
 import Contact from 'components/Contact/Contact';
 import Notification from 'components/Notification/Notification';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts, getFilter } from '../../redux/selectors';
+import { deleteContact } from '../../redux/contactsSlice';
 
-const ContactList = ({ contacts = [], filter = '', onHandleDeleteContact }) => {
+const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
+
   const getFilteredContacts = () => {
     if (!filter) return contacts;
 
@@ -12,8 +18,8 @@ const ContactList = ({ contacts = [], filter = '', onHandleDeleteContact }) => {
     });
   };
 
-  const handleDeleteContact = name => {
-    onHandleDeleteContact(name);
+  const handleDeleteContact = id => {
+    dispatch(deleteContact(id));
   };
 
   const filteredContacts = getFilteredContacts();
@@ -30,6 +36,7 @@ const ContactList = ({ contacts = [], filter = '', onHandleDeleteContact }) => {
             return (
               <li key={id}>
                 <Contact
+                  id={id}
                   name={name}
                   number={number}
                   onHandleDeleteContact={handleDeleteContact}
@@ -41,12 +48,6 @@ const ContactList = ({ contacts = [], filter = '', onHandleDeleteContact }) => {
       )}
     </>
   );
-};
-
-ContactList.propTypes = {
-  contacts: PropTypes.array,
-  filter: PropTypes.string,
-  onHandleDeleteContact: PropTypes.func,
 };
 
 export default ContactList;
