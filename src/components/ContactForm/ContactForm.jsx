@@ -14,6 +14,7 @@ const ContactForm = () => {
     event.preventDefault();
     const name = event.target.elements.name.value;
     const number = event.target.elements.number.value;
+    event.target.reset();
     const nameContacts = contacts.map(contact => contact.name.toLowerCase());
 
     nameContacts.indexOf(name.toLowerCase()) !== -1
