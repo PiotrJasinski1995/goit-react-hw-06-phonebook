@@ -1,16 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const getContactFromLocalStorage = () => {
-  let localContacts = [];
+  const localContacts = localStorage.getItem('contacts');
+
+  if (!localContacts) return [];
+
   try {
-    localContacts = JSON.parse(localStorage.getItem('contacts'));
+    return JSON.parse(localContacts);
   } catch (error) {
     console.error('Error: ', error);
   }
-
-  if (localContacts?.length > 0) {
-    return localContacts;
-  } else return [];
 };
 
 const contactsInitialState = getContactFromLocalStorage();
